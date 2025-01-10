@@ -33,15 +33,16 @@ export class AppComponent implements OnInit {
     this.name = this._githubService.getThisRepo()
     this.version = this._githubService.getVersion()
 
-    // this.router.events.subscribe((event) => {
-    //   if (event instanceof NavigationEnd) {
-    //     gtag('config', 'MEASUREMENT-ID', { 'page_path': event.urlAfterRedirects });
-    //   }      
-    // })
+    this.router.events.subscribe((event) => {
+      console.log('routerevent', event)
+      if (event instanceof NavigationEnd) {
+        gtag('config', 'MEASUREMENT-ID', { 'page_path': event.urlAfterRedirects });
+      }      
+    })
   }
 
   ngOnInit(): void {
-    // this._analythicsService.trackEvent('component_loaded', 'Component loaded into view', 'initializing');
+    this._analythicsService.trackEvent('component_loaded', 'Component loaded into view', 'initializing');
   }
 
   // github-service
