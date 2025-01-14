@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { NavigationEnd, Router, RouterModule, RouterOutlet } from '@angular/router';
-import { AnalythicsService } from './core/services/analythics/analythics.service';
 import { AsyncPipe, CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
+import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { IconsComponent } from './shared/components/icons/icons.component';
-import { GithubService } from './core/services/github/github.service';
 import { Observable } from 'rxjs';
+import { GithubService } from './core/services/github.service';
+import { AnalythicsService } from './core/analythics/analythics.service';
 
 declare const gtag: Function
 
@@ -14,17 +14,13 @@ declare const gtag: Function
     AsyncPipe,
     CommonModule,
     IconsComponent,
+    // JsonPipe,
     RouterModule
-  ],
-  providers: [
-    AnalythicsService,
-    GithubService
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.sass'
 })
-export class AppComponent implements OnInit {
-
+export class AppComponent {
   constructor(public router: Router, private _analythicsService: AnalythicsService, private _githubService: GithubService) {
     this.repos$ = this._githubService.repos$
     this.this_repo$ = this._githubService.this_repo$
@@ -33,16 +29,16 @@ export class AppComponent implements OnInit {
     this.name = this._githubService.getThisRepo()
     this.version = this._githubService.getVersion()
 
-    this.router.events.subscribe((event) => {
-      console.log('routerevent', event)
-      if (event instanceof NavigationEnd) {
-        gtag('config', 'MEASUREMENT-ID', { 'page_path': event.urlAfterRedirects });
-      }      
-    })
+    // this.router.events.subscribe((event) => {
+    //   console.log('routerevent', event)
+    //   if (event instanceof NavigationEnd) {
+    //     gtag('config', 'MEASUREMENT-ID', { 'page_path': event.urlAfterRedirects });
+    //   }      
+    // })
   }
 
   ngOnInit(): void {
-    this._analythicsService.trackEvent('component_loaded', 'Component loaded into view', 'initializing');
+    // this._analythicsService.trackEvent('component_loaded', 'Component loaded into view', 'initializing');
   }
 
   // github-service

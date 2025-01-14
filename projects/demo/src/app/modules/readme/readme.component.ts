@@ -1,6 +1,6 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { MarkdownComponent } from 'ngx-markdown';
-import { GithubService } from '../../core/services/github/github.service';
+import { GithubService } from '../../core/services/github.service';
 import { Observable } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 

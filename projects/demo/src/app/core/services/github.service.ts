@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, map, Observable, of, take, tap } from 'rxjs';
-import packageJson from '../../../../../package.json'
+import packageJson from '../../../../../../package.json'
 
 interface DataState {
   data      : any
