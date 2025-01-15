@@ -9,7 +9,7 @@ import { provideGoogleAnalyticsRouter } from '../../../ngx-google-analytics/src/
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideGoogleAnalytics('UA-123456789-1'),
+    provideGoogleAnalytics('G-ZNMB8Y0607'),
     provideGoogleAnalyticsRouter({include: ['/page-*']}),
     provideHttpClient(),
     provideZoneChangeDetection({ eventCoalescing: true }), 

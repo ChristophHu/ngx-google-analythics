@@ -1,13 +1,12 @@
-# ngx-google-analythics
+# ngx-google-analytics
 
 ## Demo
 <p align="center">
-  <a href="https://christophhu.github.io/ngx-google-analythics"><img src="https://github.com/ChristophHu/ChristophHu/blob/main/assets/img/ngx-google-analythics.png" width="500" alt="image" /></a>
+  <a href="https://christophhu.github.io/ngx-google-analytics"><img src="https://github.com/ChristophHu/ChristophHu/blob/main/assets/img/ngx-google-analytics.png" width="500" alt="image" /></a>
 </p>
 
 ## Description
-This repository contains a simple Angular project that demonstrates how to integrate Google Analytics into an Angular application.
-This will be integrated into the `github-pages-demo` repository to track the user's behavior on the website.
+
 
 ## Frameworks and Languages
 
