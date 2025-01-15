@@ -1,12 +1,14 @@
 {
   "name": "ngx-google-analytics",
-  "version": "0.0.0",
+  "version": "19.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "preprocess": "tailwindcss -c ./projects/demo/tailwind.config.js -o ./projects/ngx-google-analytics/src/lib/tailwind.scss & ng build ngx-google-analytics",
+    "publish": "cd dist/ngx-google-analytics && npm publish --access public"
   },
   "private": false,
   "dependencies": {
