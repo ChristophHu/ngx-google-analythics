@@ -3,7 +3,7 @@
     <header class="flex flex-row mt-4 justify-between">
       <div class="flex w-72 items-end">
         <ul class="relative w-full list-none">
-          <li class="inline-block cursor-pointer w-1/2" routerLink="/" routerLinkActive="active">
+          <li class="inline-block cursor-pointer w-1/2" routerLink="/overview" routerLinkActive="active">
             <a class="flex items-center">
               <div class="h-4 w-4 mt-1 mx-2">
                 <icons name="eye"></icons>
@@ -54,7 +54,7 @@
               <span>he/him</span>
             </div>
           </div>
-          <a [href]="'https://github.com/' + user.data?.login" class="w-full my-4 p-1 bg-secondary border border-borderline text-center text-darker text-sm font-bold rounded-lg cursor-pointer">profile</a>
+          <a gaEvent gaCategory="link to profile" [href]="'https://github.com/' + user.data?.login" class="w-full my-4 p-1 bg-secondary border border-borderline text-center text-darker text-sm font-bold rounded-lg cursor-pointer">profile</a>
           <span class="sr-only">profile stats</span>
           <div class="flex flex-row text-sm">
             <div class="flex items-center">
@@ -83,7 +83,7 @@
               </div>
             </div>
           </div>
-          <a [href]="'https://github.com/' + user.data?.login + '/' + repo.data?.name" class="w-full my-4 p-1 bg-secondary border border-borderline text-center text-darker text-sm font-bold rounded-lg cursor-pointer">repository</a>
+          <a gaEvent gaCategory="link to repo" [href]="'https://github.com/' + user.data?.login + '/' + repo.data?.name" class="w-full my-4 p-1 bg-secondary border border-borderline text-center text-darker text-sm font-bold rounded-lg cursor-pointer">repository</a>
           <div class="flex flex-row text-sm">
             <div class="flex items-center">
               <div class="h-4 w-4">

@@ -1,4 +1,4 @@
-import {Directive, Input} from '@angular/core';
+import {Directive, Input} from '@angular/core'
 
 @Directive({
     selector: `
@@ -10,6 +10,6 @@ import {Directive, Input} from '@angular/core';
 })
 export class GaEventCategoryDirective {
 
-    @Input() gaCategory!: string;
+    @Input() gaCategory!: string
 
 }
