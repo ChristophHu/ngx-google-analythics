@@ -5,6 +5,7 @@ import { IconsComponent } from './shared/components/icons/icons.component';
 import { Observable } from 'rxjs';
 import { GithubService } from './core/services/github.service';
 import { AnalythicsService } from './core/analythics/analythics.service';
+import { GaEventCategoryDirective, GaEventDirective } from '../../../ngx-google-analytics/src/public-api';
 
 declare const gtag: Function
 
@@ -14,6 +15,8 @@ declare const gtag: Function
     AsyncPipe,
     CommonModule,
     IconsComponent,
+    GaEventDirective,
+    GaEventCategoryDirective,
     // JsonPipe,
     RouterModule
   ],

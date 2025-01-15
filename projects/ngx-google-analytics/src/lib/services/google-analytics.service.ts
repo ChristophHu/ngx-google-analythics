@@ -1,11 +1,7 @@
 import {DOCUMENT} from '@angular/common';
 import {inject, Injectable, isDevMode} from '@angular/core';
 import {GaActionEnum} from '../enums/ga-action.enum';
-import {
-    IGoogleAnalyticsServiceAppView,
-    IGoogleAnalyticsServiceEvent,
-    IGoogleAnalyticsServicePageView
-} from '../interfaces/i-google-analytics-sevice';
+import { IGoogleAnalyticsServiceAppView, IGoogleAnalyticsServiceEvent, IGoogleAnalyticsServicePageView } from '../interfaces/i-google-analytics-sevice';
 import {NGX_GOOGLE_ANALYTICS_SETTINGS_TOKEN} from '../tokens/ngx-google-analytics-settings-token';
 import {NGX_GTAG_FN} from '../tokens/ngx-gtag-token';
 import {Primitive} from '../types/primitive.type';
@@ -28,10 +24,11 @@ export class GoogleAnalyticsService {
      * Call native GA Tag
      */
     gtag: GtagFn = (...args) => {
+        console.warn('gtag args', ...args);
         try {
-            this._gtag(...args.filter(x => x !== undefined));
+            this._gtag(...args.filter(x => x !== undefined))
         } catch (error: any) {
-            this.throw(error);
+            this.throw(error)
         }
     };
 
