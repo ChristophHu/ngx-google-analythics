@@ -1,11 +1,10 @@
 import { AsyncPipe, CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { NavigationEnd, Router, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { IconsComponent } from './shared/components/icons/icons.component';
 import { Observable } from 'rxjs';
 import { GithubService } from './core/services/github.service';
-import { AnalythicsService } from './core/analythics/analythics.service';
-import { NgxGoogleAnalyticsModule } from '../../../ngx-google-analytics/src/public-api';
+import { AnalyticsService } from '../../../ngx-google-analytics/src/public-api';
 
 declare const gtag: Function
 
@@ -15,7 +14,6 @@ declare const gtag: Function
     AsyncPipe,
     CommonModule,
     IconsComponent,
-    NgxGoogleAnalyticsModule,
     // JsonPipe,
     RouterModule
   ],
@@ -23,7 +21,7 @@ declare const gtag: Function
   styleUrl: './app.component.sass'
 })
 export class AppComponent {
-  constructor(private _githubService: GithubService) {
+  constructor(private _githubService: GithubService, private _analythicsService: AnalyticsService) {
     this.repos$ = this._githubService.repos$
     this.this_repo$ = this._githubService.this_repo$
     this.user$ = this._githubService.user$
@@ -40,7 +38,7 @@ export class AppComponent {
   }
 
   ngOnInit(): void {
-    // this._analythicsService.trackEvent('component_loaded', 'Component loaded into view', 'initializing');
+    this._analythicsService.trackEvent('component_loaded', 'Component loaded into view', 'initializing');
   }
 
   // github-service
