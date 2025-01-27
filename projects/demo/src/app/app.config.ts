@@ -4,7 +4,7 @@ import { provideRouter } from '@angular/router'
 import { routes } from './app.routes'
 import { provideHttpClient } from '@angular/common/http'
 import { provideMarkdown } from 'ngx-markdown'
-import { provideGoogleAnalytics, provideGoogleAnalyticsRouter } from '../../../ngx-google-analytics/src/public-api'
+import { provideGoogleAnalytics, provideGoogleAnalyticsRouter } from '../../../ngx-google-analytics/src/public_api'
 
 export const appConfig: ApplicationConfig = {
   providers: [

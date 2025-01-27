@@ -5,5 +5,5 @@ import {IGoogleAnalyticsSettings} from '../interfaces/i-google-analytics-setting
  * Provide an Injection Token for global settings.
  */
 export const NGX_GOOGLE_ANALYTICS_SETTINGS_TOKEN = new InjectionToken<IGoogleAnalyticsSettings>('ngx-google-analytics-settings', {
-    factory: () => ({ ga4TagId: '' })
+    factory: () => ({ga4TagId: '', enableTracing: false})
 });

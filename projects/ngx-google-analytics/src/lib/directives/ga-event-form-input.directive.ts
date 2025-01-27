@@ -1,5 +1,5 @@
-import {Directive, inject, Input} from '@angular/core'
-import {GaEventDirective} from './ga-event.directive'
+import {Directive, inject, Input} from '@angular/core';
+import {GaEventDirective} from './ga-event.directive';
 
 @Directive({
     selector: `
@@ -14,10 +14,10 @@ export class GaEventFormInputDirective {
     private readonly gaEvent = inject(GaEventDirective, {
         optional: true,
         host: true
-    })
+    });
 
     constructor() {
-        this.gaBind = 'focus'
+        this.gaBind = 'focus';
     }
 
     @Input() set gaBind(bind: string) {

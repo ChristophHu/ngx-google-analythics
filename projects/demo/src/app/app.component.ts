@@ -5,7 +5,7 @@ import { IconsComponent } from './shared/components/icons/icons.component';
 import { Observable } from 'rxjs';
 import { GithubService } from './core/services/github.service';
 import { AnalythicsService } from './core/analythics/analythics.service';
-import { GaEventCategoryDirective, GaEventDirective } from '../../../ngx-google-analytics/src/public-api';
+import { NgxGoogleAnalyticsModule } from '../../../ngx-google-analytics/src/public_api';
 
 declare const gtag: Function
 
@@ -15,8 +15,7 @@ declare const gtag: Function
     AsyncPipe,
     CommonModule,
     IconsComponent,
-    GaEventDirective,
-    GaEventCategoryDirective,
+    NgxGoogleAnalyticsModule,
     // JsonPipe,
     RouterModule
   ],
@@ -24,7 +23,7 @@ declare const gtag: Function
   styleUrl: './app.component.sass'
 })
 export class AppComponent {
-  constructor(public router: Router, private _analythicsService: AnalythicsService, private _githubService: GithubService) {
+  constructor(private _githubService: GithubService) {
     this.repos$ = this._githubService.repos$
     this.this_repo$ = this._githubService.this_repo$
     this.user$ = this._githubService.user$

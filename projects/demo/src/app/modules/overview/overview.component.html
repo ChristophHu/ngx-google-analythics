@@ -1,1 +1,42 @@
-Test
+<!--The content below is only a placeholder and can be replaced.-->
+<div class="main-container">
+    <h1>
+        <!-- Welcome to {{ title }}! -->
+    </h1>
+
+    <nav>
+        <ul class="vertical-container">
+            <li>
+                <button [routerLink]="['/overview/page-a']">Page 1</button>
+            </li>
+            <li>
+                <button [routerLink]="['/overview/page-b']">Page 2</button>
+            </li>
+        </ul>
+    </nav>
+
+    <router-outlet></router-outlet>
+
+    <hr>
+    <h2>Directive tests</h2>
+
+    <div class="vertical-container">
+        <div class="horizontal-container">
+            <button gaEvent gaCategory="ga_directive_test" gaAction="click_test">Click Test</button>
+            <button gaEvent gaCategory="ga_directive_test" gaAction="focus_test" gaBind="focus">Focus Test</button>
+            <button gaEvent gaCategory="ga_directive_test" gaAction="blur_test" gaBind="blur">Blur Test</button>
+        </div>
+
+        <div>
+            <input gaEvent gaCategory="ga_directive_input_test" gaAction="fill_blur" placeholder="Auto Blur Test">
+        </div>
+    </div>
+
+    <h2>Group Directive Test</h2>
+
+    <div gaCategory="ga_test_category" class="horizontal-container">
+        <button gaEvent gaAction="click_test">Click Test</button>
+        <button gaEvent gaAction="focus_test" gaBind="focus">Focus Test</button>
+        <button gaEvent gaAction="blur_test" gaBind="blur">Blur Test</button>
+    </div>
+</div>

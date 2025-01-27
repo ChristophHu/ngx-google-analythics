@@ -1,7 +1,11 @@
 import {DOCUMENT} from '@angular/common';
 import {inject, Injectable, isDevMode} from '@angular/core';
 import {GaActionEnum} from '../enums/ga-action.enum';
-import { IGoogleAnalyticsServiceAppView, IGoogleAnalyticsServiceEvent, IGoogleAnalyticsServicePageView } from '../interfaces/i-google-analytics-sevice';
+import {
+    IGoogleAnalyticsServiceAppView,
+    IGoogleAnalyticsServiceEvent,
+    IGoogleAnalyticsServicePageView
+} from '../interfaces/i-google-analytics-sevice';
 import {NGX_GOOGLE_ANALYTICS_SETTINGS_TOKEN} from '../tokens/ngx-google-analytics-settings-token';
 import {NGX_GTAG_FN} from '../tokens/ngx-gtag-token';
 import {Primitive} from '../types/primitive.type';
@@ -24,11 +28,10 @@ export class GoogleAnalyticsService {
      * Call native GA Tag
      */
     gtag: GtagFn = (...args) => {
-        console.warn('gtag args', ...args);
         try {
-            this._gtag(...args.filter(x => x !== undefined))
-        } catch (error: any) {
-            this.throw(error)
+            this._gtag(...args.filter(x => x !== undefined));
+        } catch (err: any) {
+            this.throw(err);
         }
     };
 
@@ -104,7 +107,7 @@ export class GoogleAnalyticsService {
                     .entries(options.options)
                     .map(([key, value]) => opt.set(key, value));
             }
-            this.gtag('event', 'page_view', this.toKeyValue(opt));
+            this.gtag('event', 'page_view', this.toKeyValue(opt)!);
         } catch (error: any) {
             this.throw(error);
         }
@@ -137,7 +140,7 @@ export class GoogleAnalyticsService {
             if (options?.installerId !== undefined) {
                 opt.set('app_installer_id', options.installerId);
             }
-            this.gtag('event', 'screen_view', this.toKeyValue(opt));
+            this.gtag('event', 'screen_view', this.toKeyValue(opt)!);
         } catch (error: any) {
             this.throw(error);
         }
@@ -158,9 +161,9 @@ export class GoogleAnalyticsService {
      */
     set(options: Record<string, Primitive>) {
         try {
-            if (this._gtag)this._gtag('set', options);
-        } catch (error: any) {
-            this.throw(error);
+            this._gtag('set', options);
+        } catch (err: any) {
+            this.throw(err);
         }
     }
 
@@ -203,9 +206,9 @@ export class GoogleAnalyticsService {
         }
     }
 
-    private toKeyValue(map: Map<string, Primitive>): { [param: string]: Primitive } {
-        if (map.size) {
-            return Object.fromEntries(map)
-         } else return {}
+    private toKeyValue(map: Map<string, Primitive>): { [param: string]: Primitive } | undefined {
+        if (map.size) // > 0
+            return Object.fromEntries(map);
+        return undefined;
     }
 }

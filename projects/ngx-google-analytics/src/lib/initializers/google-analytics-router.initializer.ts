@@ -1,6 +1,6 @@
 import {APP_BOOTSTRAP_LISTENER, ComponentRef, Provider} from '@angular/core';
 import {Event, NavigationEnd, Router} from '@angular/router';
-import {filter, skip, tap} from 'rxjs';
+import {filter, skip} from 'rxjs';
 import {IGoogleAnalyticsRoutingSettings} from '../interfaces/i-google-analytics-routing-settings';
 import {GoogleAnalyticsService} from '../services/google-analytics.service';
 import {NGX_GOOGLE_ANALYTICS_ROUTING_SETTINGS_TOKEN} from '../tokens/ngx-google-analytics-router-settings-token';
@@ -42,12 +42,15 @@ export function GoogleAnalyticsRouterInitializer(
             .events
             .pipe(
                 filter((event: Event): event is NavigationEnd => event instanceof NavigationEnd),
-                tap(event => console.log('NavigationEnd', event)),
                 skip(1), // Prevent double views on the first trigger (because GA Already send one ping on setup)
-                filter(event => includeRules.length > 0 ? includeRules.some(rule => rule.test(event.urlAfterRedirects)) : true),
-                filter(event => excludeRules.length > 0 ? !excludeRules.some(rule => rule.test(event.urlAfterRedirects)) : true)
+                filter(event => includeRules.length > 0
+                    ? includeRules.some(rule => rule.test(event.urlAfterRedirects))
+                    : true),
+                filter(event => excludeRules.length > 0
+                    ? !excludeRules.some(rule => rule.test(event.urlAfterRedirects))
+                    : true)
             )
-            .subscribe(event => gaService.pageView(event.urlAfterRedirects, undefined))
+            .subscribe(event => gaService.pageView(event.urlAfterRedirects, undefined));
         // Cleanup
         c.onDestroy(() => subs.unsubscribe());
     };
