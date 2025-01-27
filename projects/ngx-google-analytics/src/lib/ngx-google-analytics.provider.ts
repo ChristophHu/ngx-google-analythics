@@ -7,6 +7,7 @@ export function provideGoogleAnalytics(
     ga4TagId: string,
     options?: IGoogleAnalyticsOptions
 ): EnvironmentProviders {
+    console.log('provideGoogleAnalytics', ga4TagId, options);
     return makeEnvironmentProviders([
         {
             provide: NGX_GOOGLE_ANALYTICS_SETTINGS_TOKEN,

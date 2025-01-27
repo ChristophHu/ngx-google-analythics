@@ -33,6 +33,7 @@ export class GaEventDirective implements OnDestroy {
 
     @Input()
     set gaBind(gaBind: string) {
+        console.log('gaBind', gaBind);
         if (this.bindSubscription) {
             this.bindSubscription.unsubscribe();
         }

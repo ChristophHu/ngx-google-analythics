@@ -5,7 +5,7 @@ import { IconsComponent } from './shared/components/icons/icons.component';
 import { Observable } from 'rxjs';
 import { GithubService } from './core/services/github.service';
 import { AnalythicsService } from './core/analythics/analythics.service';
-import { NgxGoogleAnalyticsModule } from '../../../ngx-google-analytics/src/public_api';
+import { NgxGoogleAnalyticsModule } from '../../../ngx-google-analytics/src/public-api';
 
 declare const gtag: Function
 
