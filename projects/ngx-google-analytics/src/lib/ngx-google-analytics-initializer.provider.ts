@@ -1,134 +1,14 @@
-import { EnvironmentProviders, inject, InjectionToken, isDevMode, makeEnvironmentProviders, provideAppInitializer, Provider } from "@angular/core";
+import { inject, isDevMode, provideAppInitializer, Provider } from "@angular/core";
 import { DOCUMENT } from '@angular/common'
-import { NGX_GOOGLE_ANALYTICS_SETTINGS_TOKEN } from "./ngx-google-analytics.provider";
-
-// export const NGX_GOOGLE_ANALYTICS_INITIALIZER_PROVIDER: Provider = {
-//   provide: APP_INITIALIZER,
-//   multi: true,
-//   useFactory: GoogleAnalyticsInitializer,
-//   deps: [
-//     NGX_GOOGLE_ANALYTICS_SETTINGS_TOKEN,
-//     NGX_GTAG_FN,
-//     DOCUMENT
-//   ]
-// };
-
-// export const provideAnalyticsInitializer = (): EnvironmentProviders => {
-//     const providers: (Provider | EnvironmentProviders)[] = [
-//         NGX_GOOGLE_ANALYTICS_SETTINGS_TOKEN,
-//         NGX_GTAG_FN,
-//         DOCUMENT,
-//         {
-//             provide: APP_INITIALIZER,
-//             deps: [
-//                 NGX_GOOGLE_ANALYTICS_SETTINGS_TOKEN,
-//                 NGX_GTAG_FN,
-//                 DOCUMENT
-//             ],
-//             useFactory: GoogleAnalyticsInitializer,
-//             multi: true
-//         },
-//     ];
-  
-//     return makeEnvironmentProviders(providers)
-// };
-
-// providers: [
-//     { 
-//         provide: APP_INITIALIZER, 
-//         useFactory: initializeApp1, 
-//         deps: [AuthService], 
-//         multi: true 
-//     },
-// ]
-// providers: [
-//     provideAppInitializer(initializeApp1(inject(AuthService)))
-// ]
-// provideAppInitializer(() => intializeApp1(inject(AuthService)))
-
-// types and interfaces
-export type GaWindow = Window & {
-    gtag?: any;
-    dataLayer?: any;
-}
-export type DataLayer = Array<(string | { [param: string]: string })>
-export type GtagFn = (...args: (string | { [param: string]: string })[]) => {}
-
-export interface IGoogleAnalyticsSettings {
-    /** Is mandatory to provide a tracking code folks... */
-    tag: string;
-    /** You can inject custom initialization commands like UserId or other e-commerce features. */
-    initCommands?: Array<IGoogleAnalyticsCommand>;
-    /** If Google changes the uri and I die, you can survive! */
-    uri?: string;
-    /** If true, trace GA tracking errors in production mode */
-    enableTracing?: boolean;
-    /** If has a value, nonce will be added to script tag **/
-    nonce?: string;
-}
-export interface IGoogleAnalyticsCommand {
-    command: string;
-    values: Array<any>;
-}
-
-export const NGX_GTAG_FN = new InjectionToken<GtagFn>('ngx-gtag-fn', {
-    providedIn: 'root',
-    factory: () => getGtagFn(inject(NGX_WINDOW), inject(NGX_DATA_LAYER))
-})
-export const NGX_WINDOW = new InjectionToken<GaWindow>('ngx-window', {
-    providedIn: 'root',
-    factory: () => {
-    const { defaultView } = inject(DOCUMENT);
-
-    if (!defaultView) {
-        throw new Error('Window is not available');
-    }
-
-    return defaultView;
-    },
-})
-export const NGX_DATA_LAYER = new InjectionToken<DataLayer>('ngx-data-layer', {
-    providedIn: 'root',
-    factory: () => getDataLayerFn(inject(NGX_WINDOW))
-});
-
-export function getDataLayerFn(window: GaWindow): DataLayer {
-    return (window)
-      ? window['dataLayer'] = window['dataLayer'] || []
-      : null;  
-}
-export function getGtagFn(window: GaWindow, dataLayer: DataLayer): GtagFn {
-    return (window)
-    ? window['gtag'] = window['gtag'] || function () {
-        dataLayer.push(arguments as any);
-        }
-    : null;
-}
+import { NGX_GOOGLE_ANALYTICS_SETTINGS_TOKEN } from "./tokens/ngx-google-analytics-settings-token";
+import { DataLayer } from "./initializer/analytics.initializer";
+import { GtagFn } from "./models/g-tag-fn";
+import { IGoogleAnalyticsSettings } from "./models/google-analytics-settings";
+import { NGX_GTAG_FN } from "./tokens/ngx-g-tag-fn";
 
 export const NGX_GOOGLE_ANALYTICS_INITIALIZER_PROVIDER: Provider = [
-  provideAppInitializer(() => GoogleAnalyticsInitializer(inject(NGX_GOOGLE_ANALYTICS_SETTINGS_TOKEN), inject(NGX_GTAG_FN), inject(DOCUMENT))),
+  provideAppInitializer(() => GoogleAnalyticsInitializer(inject(NGX_GOOGLE_ANALYTICS_SETTINGS_TOKEN), inject(NGX_GTAG_FN), inject(DOCUMENT)))
 ]
-
-// export const provideAnalyticsInitializer = (): EnvironmentProviders => {
-//     const providers: (Provider | EnvironmentProviders)[] = [
-//         // NGX_GOOGLE_ANALYTICS_SETTINGS_TOKEN,
-//         // NGX_GTAG_FN,
-//         // DOCUMENT,
-//         provideAppInitializer(() => GoogleAnalyticsInitializer(inject(NGX_GOOGLE_ANALYTICS_SETTINGS_TOKEN), inject(NGX_GTAG_FN), inject(DOCUMENT))),
-//         // {
-//         //     provide: APP_INITIALIZER,
-//         //     deps: [
-//         //         NGX_GOOGLE_ANALYTICS_SETTINGS_TOKEN,
-//         //         NGX_GTAG_FN,
-//         //         DOCUMENT
-//         //     ],
-//         //     useFactory: GoogleAnalyticsInitializer,
-//         //     multi: true
-//         // },
-//     ];
-  
-//     return makeEnvironmentProviders(providers)
-// };
 
 export function GoogleAnalyticsInitializer(settings: IGoogleAnalyticsSettings, gtag: GtagFn, document: Document): Promise<void> {
   console.warn('GoogleAnalyticsInitializer', settings, gtag, document)

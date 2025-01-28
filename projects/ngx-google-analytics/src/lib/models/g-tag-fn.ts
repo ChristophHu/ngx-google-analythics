@@ -1,0 +1,1 @@
+export type GtagFn = (...args: (string | { [param: string]: string })[]) => {}
