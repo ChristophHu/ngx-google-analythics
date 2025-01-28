@@ -18,7 +18,7 @@ export interface IGoogleAnalyticsSettings {
     enableTracing?: boolean;
     /** If has a value, nonce will be added to script tag **/
     nonce?: string;
-  }
+}
 
 export type GaWindow = Window & {
     gtag?: any;
@@ -88,6 +88,7 @@ export function GoogleAnalyticsInitializer(
 ) {
   console.warn('GoogleAnalyticsInitializer', settings, gtag, document);
   return async () => {
+    console.log('settings.tag', settings.tag);
     if (!settings.tag) {
       if (!isDevMode()) {
         console.error('Empty tracking code for Google Analytics. Make sure to provide one when initializing NgxGoogleAnalyticsModule.');
